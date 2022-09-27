@@ -24,10 +24,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: openssl aes-256-cbc -K $encrypted_2be0a157b4e7_key -iv $encrypted_2be0a157b4e7_iv -in service-account.json.enc -out service-account.json -d
       - run: npm install
       - run: npm run lint
-      - run: npm run tests
       - run: npm run docs
       - run: npm run build
       - run: npx semantic-release
