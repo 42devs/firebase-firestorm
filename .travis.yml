@@ -1,7 +1,10 @@
 language: node_js
 
 node_js:
-  - 10
+  - 12
+  - 14
+  - 16
+  - 19
 
 install:
   - npm install
@@ -18,5 +21,4 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script:
-    - npx semantic-release
+  script: npx semantic-release
