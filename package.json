@@ -21,10 +21,13 @@
   "files": [
     "lib/**/*"
   ],
-  "author": "Lewis McQuillan",
+  "author": {
+    "name": "Nicolas Martinez",
+    "email": "nicolas@42devs.cl"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lmcq/firebase-firestorm"
+    "url": "https://github.com/42devs/firebase-firestorm"
   },
   "license": "MIT",
   "nyc": {
