@@ -13,7 +13,6 @@ let store: IStore  = {
   config: {
     fieldConversion: FieldConversionType.NoConversion,
   },
-  store: undefined,
 };
 
 /**
@@ -40,7 +39,6 @@ export const destroy = (): void => {
     config: {
       fieldConversion: FieldConversionType.NoConversion,
     },
-    store: undefined,
   };
 };
 

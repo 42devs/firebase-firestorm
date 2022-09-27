@@ -30,6 +30,7 @@ const serialize = (
   return FieldUtils.process(
     isArray,
     value,
+    // @ts-ignore
     (v: IGeoPoint): firestore.GeoPoint => v.native,
   );
 };

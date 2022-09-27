@@ -73,6 +73,7 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
   /**
    * The snapshot metadata.
    */
+  // @ts-ignore
   public get metadata(): SnapshotMetadata { return this._nativeSnapshot.metadata; }
 
   /**
@@ -93,6 +94,7 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
    * @param opts Options to control what type of changes to include in the results.
    */
   public docChanges(opts?: SnapshotListenOptions): DocumentChange<T>[] {
+    // @ts-ignore
     const changes = this._nativeSnapshot.docChanges(opts).map((change): DocumentChange<T> => {
       const doc = this.deserializeValue(change.doc);
       return {

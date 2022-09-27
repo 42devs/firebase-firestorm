@@ -50,6 +50,7 @@ export default class DocumentSnapshot <T extends Entity> implements IDocumentSna
   /**
    * The metadata for the reference.
    */
+  // @ts-ignore
   public get metadata(): SnapshotMetadata { return this._nativeSnapshot.metadata; }
 
 }

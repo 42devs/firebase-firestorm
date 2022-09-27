@@ -4,9 +4,7 @@ import { FieldConversionType } from './enum.types';
 import { IFieldMeta } from './field.types';
 
 export interface IStore {
-  store: any;
   [x: string]: any;
-  store: any;
   firestore?: firestore.Firestore;
   repositories: Map<string, IRepository>;
   config: IFireormConfig;
