@@ -3,6 +3,7 @@
   "version": "0.9.0",
   "description": "A firestore ORM for Typescript",
   "main": "lib/index.js",
+  "private": false,
   "scripts": {
     "build": "tsc",
     "test": "GOOGLE_APPLICATION_CREDENTIALS='service-account.json' nyc --reporter=lcov mocha -r ts-node/register test/**/*.spec.ts && cat ./coverage/lcov.info | codacy-coverage",
