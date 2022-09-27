@@ -13,6 +13,9 @@
     "commit": "npx git-cz",
     "semantic-release": "semantic-release"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "firestorm",
     "firestore",
