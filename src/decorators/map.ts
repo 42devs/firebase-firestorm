@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { FieldTypes, IFieldMeta, WriteTypes, IEntity, FirestormData, IFieldMapConfig, IFieldMapMeta } from '../types';
 import FieldUtils from '../utils/FieldUtils';
 import { getOrCreateRepository } from '../store';
@@ -78,10 +79,11 @@ const toData = (
         result[key] = fieldConfig.toData(v[key]);
       });
       Object.keys(result).forEach((key): void => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         result[key] === undefined ? delete result[key] : '';
       });
       return result;
-    }
+    },
   );
 };
 
@@ -116,6 +118,6 @@ export default function (fieldConfig: IFieldMapConfig = {}): Function {
     };
     field.toData = (value: any): FirestormData | FirestormData[] => {
       return toData(field.isArray, value, childRepository.fields);
-    }
+    };
   };
-};
+}

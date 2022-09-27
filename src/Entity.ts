@@ -7,6 +7,7 @@ import { getRepository } from './store';
 export default class Entity implements IEntity {
   // The ID of the document.
   public id!: string;
+
   // The document reference of the document.
   public ref!: IDocumentRef<this>;
 
@@ -22,6 +23,7 @@ export default class Entity implements IEntity {
       result[key] = fieldConfig.toData(this[k]);
     });
     Object.keys(result).forEach((key): void => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       result[key] === undefined ? delete result[key] : '';
     });
     return result;

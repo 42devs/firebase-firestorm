@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import Entity from './Entity';
 import { IDocumentSnapshot, ICollection } from './types/collection.types';
 import { IDocumentRef } from './types';
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
+import { SnapshotMetadata } from 'firebase/firestore';
 import { FirestoreSerializer } from './utils';
 
 export default class DocumentSnapshot <T extends Entity> implements IDocumentSnapshot<T> {
@@ -9,6 +11,7 @@ export default class DocumentSnapshot <T extends Entity> implements IDocumentSna
    * @hidden
    */
   private _nativeSnapshot: firestore.DocumentSnapshot;
+
   /**
    * @hidden
    */
@@ -47,6 +50,6 @@ export default class DocumentSnapshot <T extends Entity> implements IDocumentSna
   /**
    * The metadata for the reference.
    */
-  public get metadata(): firestore.SnapshotMetadata { return this._nativeSnapshot.metadata; }
+  public get metadata(): SnapshotMetadata { return this._nativeSnapshot.metadata; }
 
 }

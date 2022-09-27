@@ -1,4 +1,5 @@
-import { firestore } from 'firebase/app';
+/* eslint-disable @typescript-eslint/no-shadow */
+import firestore from 'firebase-admin/firestore';
 import store, { getRepository } from './store';
 import { ICollectionQuery, ICollection, IDocumentRef, WriteTypes } from './types';
 import { QueryBuilder, FirestoreSerializer } from './utils';
@@ -16,14 +17,17 @@ class Collection <T extends Entity, P extends Entity> implements ICollection<T, 
    * @hidden
    */
   private _Entity: new () => T;
+
   /**
    * @hidden
    */
   private _native: firestore.CollectionReference;
+
   /**
    * @hidden
    */
   private _path: string;
+
   /**
    * @hidden
    */
@@ -86,7 +90,7 @@ class Collection <T extends Entity, P extends Entity> implements ICollection<T, 
     } else {
       throw new Error('Undefined firestore');
     }
-  };
+  }
 
   /**
    * Gets a document reference from the collection.
@@ -125,13 +129,13 @@ class Collection <T extends Entity, P extends Entity> implements ICollection<T, 
         throw new Error(`An ID must be provided when updating ${entity.constructor.name}`);
       }
       const { id, ...data } = FirestoreSerializer.serialize(entity, WriteTypes.Update);
-      this._native.doc(id).update(data).then((): void => {
+      this._native.doc(id!).update(data).then((): void => {
         this.get(entity.id).then((updatedEntity): void => {
           resolve(updatedEntity);
         });
       });
     });
-  };
+  }
 
   /**
    * Creates a new document from an entity instance.
@@ -156,7 +160,7 @@ class Collection <T extends Entity, P extends Entity> implements ICollection<T, 
         });
       }
     });
-  };
+  }
 
   /**
    * Finds a list of documents based on a criteria.

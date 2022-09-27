@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase-admin';
 import {
   IFireormConfig,
   IFieldMeta,
@@ -12,7 +12,8 @@ let store: IStore  = {
   repositories: new Map<string, IRepository>(),
   config: {
     fieldConversion: FieldConversionType.NoConversion,
-  }
+  },
+  store: undefined,
 };
 
 /**
@@ -39,6 +40,7 @@ export const destroy = (): void => {
     config: {
       fieldConversion: FieldConversionType.NoConversion,
     },
+    store: undefined,
   };
 };
 

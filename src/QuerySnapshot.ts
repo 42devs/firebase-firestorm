@@ -1,4 +1,6 @@
-import { firestore } from 'firebase/app';
+/* eslint-disable @typescript-eslint/no-shadow */
+import firestore from 'firebase-admin/firestore';
+import { SnapshotMetadata, SnapshotListenOptions } from 'firebase/firestore';
 import Query from './Query';
 import Entity from './Entity';
 import { IQuerySnapshot, ICollection, DocumentChange } from './types';
@@ -12,18 +14,22 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
    * @hidden
    */
   private _Entity: new () => T;
+
   /**
    * @hidden
    */
   private _collection: ICollection<T>;
+
   /**
    * @hidden
    */
   private _nativeSnapshot: firestore.QuerySnapshot;
+
   /**
    * @hidden
    */
   private _docs: T[];
+
   /**
    * @hidden
    */
@@ -57,7 +63,7 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
   /**
    * The number of docs in the snapshot.
    */
-  public get size(): number { return this._nativeSnapshot.size }
+  public get size(): number { return this._nativeSnapshot.size; }
 
   /**
    * Whether or not the snapshot is empty.
@@ -67,7 +73,7 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
   /**
    * The snapshot metadata.
    */
-  public get metadata(): firestore.SnapshotMetadata { return this._nativeSnapshot.metadata; }
+  public get metadata(): SnapshotMetadata { return this._nativeSnapshot.metadata; }
 
   /**
    * The query which resulted in the snapshot.
@@ -86,7 +92,7 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
    * Returns an array of the document changes since the last snapshot.
    * @param opts Options to control what type of changes to include in the results.
    */
-  public docChanges(opts?: firestore.SnapshotListenOptions): DocumentChange<T>[] {
+  public docChanges(opts?: SnapshotListenOptions): DocumentChange<T>[] {
     const changes = this._nativeSnapshot.docChanges(opts).map((change): DocumentChange<T> => {
       const doc = this.deserializeValue(change.doc);
       return {
@@ -94,7 +100,7 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
         newIndex: change.newIndex,
         oldIndex: change.oldIndex,
         type: change.type,
-      }
+      };
     });
     return changes;
   }
@@ -105,6 +111,6 @@ export default class QuerySnapshot <T extends Entity> implements IQuerySnapshot<
    */
   private deserializeValue = (nativeValue: firestore.DocumentSnapshot): T  => {
     return FirestoreSerializer.deserialize(nativeValue, this._Entity, this._collection);
-  }
+  };
 
 }

@@ -1,4 +1,4 @@
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
 import { IDocumentRefConfig, IDocumentRefMeta, FieldTypes, IDocumentRef, IEntity, ICollection } from '../types';
 import FieldUtils from '../utils/FieldUtils';
 import { getOrCreateRepository, getRepository } from '../store';
@@ -31,8 +31,8 @@ const deserialize = (
   value: firestore.DocumentReference | firestore.DocumentReference[],
 ): IDocumentRef<IEntity> | IDocumentRef<IEntity>[] => {
   const deserializeValue = (firestoreDocRef: firestore.DocumentReference): IDocumentRef<IEntity> => {
-    let parentEntityName = entity.prototype.constructor.name;
-    let firestoreParent: firestore.CollectionReference | null = firestoreDocRef.parent || null;
+    const parentEntityName = entity.prototype.constructor.name;
+    const firestoreParent: firestore.CollectionReference | null = firestoreDocRef.parent || null;
     
     /**
      * Recursive function to construct the parent tree of a document referenc.e
@@ -102,14 +102,15 @@ const toData = (
  * Registers a document reference field.
  * @param docRefConfig The field configuration.
  */
+// @ts-ignore
 export default function (docRefConfig: IDocumentRefConfig): Function {
-  return function(target: any, key: string): void {
+  return function (target: any, key: string): void {
     const type = Reflect.getMetadata('design:type', target, key);
     const field = FieldUtils.configure(
       docRefConfig,
       key,
       type(),
-      FieldTypes.DocumentReference
+      FieldTypes.DocumentReference,
     ) as IDocumentRefMeta;
     field.entity = docRefConfig.entity;
     // Serialization Functions
@@ -124,7 +125,7 @@ export default function (docRefConfig: IDocumentRefConfig): Function {
       return deserialize(field.isArray, field.entity, value);
     };
     field.toData = (
-      value: IDocumentRef<IEntity> | IDocumentRef<Entity>
+      value: IDocumentRef<IEntity> | IDocumentRef<Entity>,
     ): Record<string, any> | Record<string, any>[] | undefined => {
       return toData(field.isArray, value);
     };
@@ -132,4 +133,4 @@ export default function (docRefConfig: IDocumentRefConfig): Function {
     const repository = getOrCreateRepository(target.constructor.name);
     repository.fields.set(key, field);
   };
-};
+}

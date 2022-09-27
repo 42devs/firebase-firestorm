@@ -1,4 +1,5 @@
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
+import { SnapshotMetadata, SnapshotListenOptions } from 'firebase/firestore';
 import { IDocumentRef } from './field.types';
 import { Query } from '..';
 
@@ -27,16 +28,16 @@ export interface IQuerySnapshot <T extends IEntity> {
   size: number;
   empty: boolean;
   query: IQuery<T>;
-  metadata: firestore.SnapshotMetadata;
+  metadata: SnapshotMetadata;
   forEach: (callback: ((doc: T, index: number) => void)) => void;
-  docChanges: (opts?: firestore.SnapshotListenOptions) => DocumentChange<T>[];
+  docChanges: (opts?: SnapshotListenOptions) => DocumentChange<T>[];
 }
 
 export interface IDocumentSnapshot <T extends IEntity> {
   doc: T;
   exists: boolean;
   ref: IDocumentRef<T>;
-  metadata: firestore.SnapshotMetadata;
+  metadata: SnapshotMetadata;
 }
 
 export interface ICollection <T extends IEntity, P extends IEntity = any> {
@@ -50,7 +51,7 @@ export interface ICollection <T extends IEntity, P extends IEntity = any> {
   get: (id: string) => Promise<T | null>;
   find: (query? : ICollectionQuery<T>) => Promise<T[]>;
   remove: (id: string) => Promise<void>;
-};
+}
 
 export interface DocumentChange <T extends IEntity> {
   doc: T;
@@ -72,7 +73,7 @@ type WhereQuery <T extends IEntity> = [
 type OrderByQuery <T extends IEntity> = [
   keyof T,
   firestore.OrderByDirection?,
-]
+];
 
 type StartAtQuery <T extends IEntity> = T | any;
 type StartAfterQuery <T extends IEntity> = T | any;

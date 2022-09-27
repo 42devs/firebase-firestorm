@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
 import { FieldTypes } from './enum.types';
 import { ICollection, IEntity, IDocumentSnapshot } from './collection.types';
 

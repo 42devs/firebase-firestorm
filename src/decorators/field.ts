@@ -3,7 +3,7 @@ import FieldUtils from '../utils/FieldUtils';
 import { getOrCreateRepository } from '../store';
 
 export default function (fieldConfig?: IFieldConfig): Function {
-  return function(target: any, key: string): void {
+  return function (target: any, key: string): void {
     const type = Reflect.getMetadata('design:type', target, key);
     const field = FieldUtils.configure(
       fieldConfig || {},
@@ -16,4 +16,4 @@ export default function (fieldConfig?: IFieldConfig): Function {
     const repository = getOrCreateRepository(target.constructor.name);
     repository.fields.set(key, field);
   };
-};
+}

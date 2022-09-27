@@ -1,9 +1,12 @@
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
 import { ICollectionConfig, ISubCollectionConfig, IEntity } from './collection.types';
 import { FieldConversionType } from './enum.types';
 import { IFieldMeta } from './field.types';
 
 export interface IStore {
+  store: any;
+  [x: string]: any;
+  store: any;
   firestore?: firestore.Firestore;
   repositories: Map<string, IRepository>;
   config: IFireormConfig;

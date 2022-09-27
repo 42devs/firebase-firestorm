@@ -1,4 +1,4 @@
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
 import { IGeoPoint } from '../types';
 
 /**

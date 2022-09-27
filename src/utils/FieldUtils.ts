@@ -47,9 +47,9 @@ export default class FieldUtils {
       isArray: Array.isArray(type),
       deserialize: function (): null { return null; },
       serialize: function (): null { return null; },
-      toData: function(): null { return null; },
+      toData: function (): null { return null; },
     };
-  };
+  }
 
   /**
    * Utility for running a processor function on a field value or array of values.
@@ -67,5 +67,5 @@ export default class FieldUtils {
     } else {
       return processSingle(fieldValue as T);
     }
-  };
+  }
 }

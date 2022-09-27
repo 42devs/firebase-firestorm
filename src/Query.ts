@@ -1,4 +1,4 @@
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
 import { Entity } from '.';
 import { IFieldMeta, ICollection, IQuery } from './types';
 import QuerySnapshot from './QuerySnapshot';
@@ -10,8 +10,11 @@ import QuerySnapshot from './QuerySnapshot';
  */
 export default class Query<T extends Entity> implements IQuery<T> {
   private _Entity: new () => T;
+
   private _collection: ICollection<T>;
+
   private _native: firestore.Query;
+
   private _fields: Map<string, IFieldMeta>;
 
   /**
@@ -22,6 +25,7 @@ export default class Query<T extends Entity> implements IQuery<T> {
    * @param native The native firestore query.
    */
   public constructor(
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     Entity: new () => T,
     collection: ICollection<T>,
     fields: Map<string, IFieldMeta>,

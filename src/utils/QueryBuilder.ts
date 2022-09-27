@@ -1,4 +1,4 @@
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
 import { IEntity, ICollectionQuery, ICollection, IFieldMeta } from '../types';
 
 /**
@@ -32,7 +32,7 @@ export default class QueryBuilder {
       if (field) {
         return accum.where(field.name, operator, value);
       }
-      throw new Error(`Could not find property ${property} in collection ${collection.path}`);
+      throw new Error(`Could not find property ${property as string} in collection ${collection.path}`);
     }, collectionRef);
 
     if (orderByQueries) {

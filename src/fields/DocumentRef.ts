@@ -1,5 +1,5 @@
+import firestore from 'firebase-admin/firestore';
 import { IDocumentRef, ICollection } from '../types';
-import { firestore } from 'firebase/app';
 import { FirestoreSerializer } from '../utils';
 import Collection from '../Collection';
 import Entity from '../Entity';
@@ -12,10 +12,15 @@ import DocumentSnapshot from '../DocumentSnapshot';
  */
 class DocumentRef <T extends Entity> implements IDocumentRef<T> {
   private _id: string;
+
   private _model: new () => T;
+
   private _native: firestore.DocumentReference;
+
   private _path: string;
+
   private _parent: ICollection<T>;
+
   private _cachedDocument: T | null;
 
   /**
@@ -117,7 +122,7 @@ class DocumentRef <T extends Entity> implements IDocumentRef<T> {
    * Get a subcollection for a document.
    * @param collectionModel The entity for the collection.
    */
-  public collection <C extends Entity> (collectionModel: new () => C): ICollection<C> {
+  public collection <C extends Entity>(collectionModel: new () => C): ICollection<C> {
     const childRepository = getRepository(collectionModel.prototype.constructor.name);
     const currentSubcollections = getRepository(this._model.prototype.constructor.name).subcollections;
     const collectionExists = currentSubcollections.has(childRepository.collectionConfig.name);
@@ -134,7 +139,7 @@ class DocumentRef <T extends Entity> implements IDocumentRef<T> {
    * @returns The unsubscribe function for the listener.
    */
   public onSnapshot(onNext: (snapshot: DocumentSnapshot<T>) => void, onError?: (e: Error) => void): (() => void) {
-    return this._native.onSnapshot((snapshot): void => {
+    return this._native.onSnapshot((snapshot: any): void => {
       onNext(this.buildSnapshot(snapshot));
     }, onError);
   }

@@ -1,4 +1,4 @@
-import { firestore } from 'firebase/app';
+import firestore from 'firebase-admin/firestore';
 import { FieldTypes, ITimestampConfig, WriteTypes, ITimestampMeta } from '../types';
 import FieldUtils from '../utils/FieldUtils';
 import { getOrCreateRepository } from '../store';
@@ -19,7 +19,7 @@ const serialize = (
   updateOnCreate: boolean,
   updateOnUpdate: boolean,
   writeType: WriteTypes,
-  value: Timestamp | Timestamp[]
+  value: Timestamp | Timestamp[],
 ): firestore.Timestamp | firestore.Timestamp[] | firestore.FieldValue | firestore.FieldValue[] => {
   return FieldUtils.process(
     isArray,
@@ -36,7 +36,7 @@ const serialize = (
       }
     },
   );
-}
+};
 
 /**
  * Deserializes a firestore timestamp into a firestorm timestamp.
@@ -55,7 +55,7 @@ const deserialize = (
         v.seconds,
         v.nanoseconds,
       );
-    }
+    },
   );
 };
 
@@ -79,7 +79,8 @@ const toData = (
 
 export default function (fieldConfig?: ITimestampConfig): Function {
   return function (target: any, key: string): void {
-    let _fieldConfig = fieldConfig || {};
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const _fieldConfig = fieldConfig || {};
     // Configure the field.
     const type = Reflect.getMetadata('design:type', target, key);
     const field = FieldUtils.configure(
@@ -120,4 +121,4 @@ export default function (fieldConfig?: ITimestampConfig): Function {
     const repository = getOrCreateRepository(target.constructor.name);
     repository.fields.set(key, field);
   };
-};
+}
