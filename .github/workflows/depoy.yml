@@ -9,6 +9,7 @@ on:
       - main
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN_MAIN }}
 jobs:
   build:
     runs-on: ubuntu-latest
